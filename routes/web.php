@@ -17,6 +17,22 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// 발주리스트 
+Route::get('/orderlist', function () {
+    return view('admin.orderlist');
+});
+
+
+Route::get('/uniformlist', function () {
+    return view('user.uniformlist');
+});
+
+Route::get('/uniforminfo', function () {
+    return view('user.uniforminfo');
+})->name('uniforminfo');
+
+
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
