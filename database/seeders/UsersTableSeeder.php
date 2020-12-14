@@ -17,7 +17,7 @@ class UsersTableSeeder extends Seeder
         // 유저1
         DB::table('users')->insert([
             'email'=>'hong@gmail.com',
-            'password'=>'123412341234',
+            'password'=>bcrypt('1234'),
             'name'=>'Hong',
             'address'=>'Daegu',
             'role'=>1,
@@ -26,7 +26,7 @@ class UsersTableSeeder extends Seeder
         // 유저2
         DB::table('users')->insert([
             'email'=>'lee@gmail.com',
-            'password'=>'123412341234',
+            'password'=>'1234',
             'name'=>'Lee',
             'address'=>'NEWYORK',
             'role'=>1,
@@ -35,7 +35,7 @@ class UsersTableSeeder extends Seeder
         // 유저3
         DB::table('users')->insert([
             'email'=>'kim@gmail.com',
-            'password'=>'123412341234',
+            'password'=>'1234',
             'name'=>'Kim',
             'address'=>'TOKYO',
             'role'=>1,
@@ -44,10 +44,19 @@ class UsersTableSeeder extends Seeder
         // 유저4
         DB::table('users')->insert([
             'email'=>'park@gmail.com',
-            'password'=>'123412341234',
+            'password'=>'1234',
             'name'=>'Park',
             'address'=>'FUKUOKA',
             'role'=>1,
+        ]);
+
+        // 유저4
+        DB::table('users')->insert([
+            'email'=>'admin@gmail.com',
+            'password'=>bcrypt('1234'),
+            'name'=>'Admin',
+            'address'=>'FUKUOKA',
+            'role'=>0,
         ]);
     }
 }
