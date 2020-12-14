@@ -30,9 +30,3 @@ Route::get('/uniformlist', function () {
 Route::get('/uniforminfo', function () {
     return view('user.uniforminfo');
 })->name('uniforminfo');
-
-
-
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
