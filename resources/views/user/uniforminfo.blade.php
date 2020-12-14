@@ -11,6 +11,7 @@
         <img id="uniformimage"src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRX_eZHagNGoHtZvy9RCWiIuR5FHQ0_lJE6CQ&usqp=CAU" alt="..." class="img-thumbnail rounded">
     </div>
     <div>
+            
     </div>
 </body>
 
