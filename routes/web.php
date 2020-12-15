@@ -2,8 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
-
-
+use App\Http\Controllers\UniformController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,14 +24,13 @@ Route::get('/orderlist', function () {
     return view('admin.orderlist');
 });
 
+// 유니폼 리스트
+Route::get('/uniformlist', 'UniformController@index');
+Route::get('/uniformlist/{product_number}', [UniformController::class, 'show']);
 
-Route::get('/uniformlist', function () {
-    return view('user.uniformlist');
-});
+// 유니폼 구매
+Route::post('/uniformlist/{product_number}', [UniformController::class, 'store']);
 
-Route::get('/uniforminfo', function () {
-    return view('user.uniforminfo');
-})->name('uniforminfo');
 
 
 // 사용자 가입
@@ -40,3 +38,4 @@ Route::post('auth/register','UsersController@store');
 
 // 사용자 로그인
 Route::post('auth/login','SessionsController@store');
+
