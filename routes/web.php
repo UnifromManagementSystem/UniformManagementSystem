@@ -18,10 +18,7 @@ Route::get('/', function () {
 });
 
 // 발주리스트 
-Route::get('/orderlist', function () {
-    return view('admin.orderlist');
-});
-
+Route::resource('orderlist', 'OrderListController');
 
 Route::get('/uniformlist', function () {
     return view('user.uniformlist');

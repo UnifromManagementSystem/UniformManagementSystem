@@ -13,33 +13,34 @@
     <p style="text-align:right;">12月の売り上げ(発送完了分): 1240000원</p>
     <table class="table">
         <thead>
-
             <tr>
-            <th scope="col">No</th>
-            <th scope="col">名前</th>
-            <th scope="col">種類</th>
-            <th scope="col">個数</th>
-            <th scope="col">合計金額</th>
-            <th scope="col">発注日</th>
-            <th scope="col">入金状況</th>
-            <th scope="col">発送状況</th>
-            <th scope="col">   </th>
+                <th scope="col">No</th>
+                <th scope="col">名前</th>
+                <th scope="col">種類</th>
+                <th scope="col">個数</th>
+                <th scope="col">合計金額</th>
+                <th scope="col">発注日</th>
+                <th scope="col">入金状況</th>
+                <th scope="col">発送状況</th>
+                <th scope="col"></th>
             </tr>
-
         </thead>
+        @foreach($data as $item)
         <tbody>
-            <tr>
+            <tr id='item'>
             <th scope="row">1</th>
-            <td>홍길동1</td>
-            <td>유니폼A</td>
-            <td>3</td>
-            <td>62000</td>
-            <td>2020/11/20</td>
+            <td>{{$item -> name}}</td>
+            <td>{{$item -> product_name}}</td>
+            <td>{{$item -> order_count}}</td>
+            <td>{{$item -> order_price}}</td>
+            <td>{{$item -> order_date}}</td>
             <td>
                 <select class="form-select" aria-label="Default select example">
                     <option value="1">入金済</option>
                     <option value="2">入金待ち</option>
-                </select></td>
+                </select>
+            </td>
+
             <td>
                 <select class="form-select" aria-label="Default select example">
                         <option value="1">発送準備中</option>
@@ -48,82 +49,8 @@
             </td>
             <td><button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#readModal">詳細</button><button style="margin-left:10px;" type="button" class="btn btn-outline-warning">更新</button></td>
             </tr>
-
-
-            <tr>
-            <th scope="row">2</th>
-            <td>홍길동2</td>
-            <td>유니폼B</td>
-            <td>1</td>
-            <td>24000</td>
-            <td>2020/12/08</td>
-            <td>
-                <select class="form-select" aria-label="Default select example">
-                    <option value="1">入金済</option>
-                    <option value="2">入金待ち</option>
-                </select></td>
-            </td>
-            <td>
-                <select class="form-select" aria-label="Default select example">
-                        <option value="1">発送準備中</option>
-                        <option value="2">未</option>
-                </select></td>
-            </td>
-            <td><button type="button" class="btn btn-outline-info" >詳細</button><button style="margin-left:10px;" type="button" class="btn btn-outline-warning">更新</button></td>
-            
-            </tr>
-
-            <tr>
-            <th scope="row">3</th>
-            <td>홍길동3</td>
-            <td>유니폼C</td>
-            <td>1</td>
-            <td>25000</td>
-            <td>2020/10/25</td>
-            <td>
-                <select class="form-select" aria-label="Default select example">
-                    <option value="1">入金済</option>
-                    <option value="2">入金待ち</option>
-                </select></td>
-            </td>
-            <td>
-                <select class="form-select" aria-label="Default select example">
-                        <option value="1">発送準備中</option>
-                        <option value="2">未</option>
-                </select></td>
-            </td>
-            <td><button type="button" class="btn btn-outline-info">詳細</button><button style="margin-left:10px;"type="button" class="btn btn-outline-warning">更新</button></td>
-            </tr>
-
-
-            <tr>
-            <th scope="row">4</th>
-            <td>홍길동4</td>
-            <td>유니폼B</td>
-            <td>2</td>
-            <td>42000</td>
-            <td>2020/11/12</td>
-            <td>
-                <select class="form-select" aria-label="Default select example">
-                    <option value="1">入金済</option>
-                    <option value="2">入金待ち</option>
-                </select></td>
-            </td>
-            <td>
-                <select class="form-select" aria-label="Default select example">
-                        <option value="1">発送準備中</option>
-                        <option value="2">未</option>
-                </select></td>
-            </td>
-            <td><button type="button" class="btn btn-outline-info">詳細</button><button style="margin-left:10px;" type="button" class="btn btn-outline-warning">更新</button></td>
-            </tr>
-
-
-
-          
-
         </tbody>
-        
+        @endforeach
     </table>
 
     <!-- 발주상세정보 모달창 -->
@@ -167,3 +94,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 </body>
 </html>
+
+<script>
+
+</script>
