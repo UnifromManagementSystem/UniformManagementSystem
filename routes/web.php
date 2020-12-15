@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+use App\Http\Controllers\UniformController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,22 +16,24 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('login');
+})->name('home');
 
 // 발주리스트 
 Route::resource('orderlist', 'OrderListController');
 
-Route::get('/uniformlist', function () {
-    return view('user.uniformlist');
-});
+// 유니폼 리스트
+Route::get('/uniformlist', 'UniformController@index');
+Route::get('/uniformlist/{product_number}', [UniformController::class, 'show']);
 
-Route::get('/uniforminfo', function () {
-    return view('user.uniforminfo');
-})->name('uniforminfo');
-
+// 유니폼 구매
+Route::post('/uniformlist/{product_number}', [UniformController::class, 'store']);
 
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+
+// 사용자 가입
+Route::post('auth/register','UsersController@store');
+
+// 사용자 로그인
+Route::post('auth/login','SessionsController@store');
+
