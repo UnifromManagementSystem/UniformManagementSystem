@@ -37,3 +37,6 @@ Route::post('auth/register','UsersController@store');
 // 사용자 로그인
 Route::post('auth/login','SessionsController@store');
 
+// 사용자 로그아웃
+Route::get('auth/logout','SessionsController@destroy');
+

@@ -100,7 +100,7 @@
             }
         </style>
     </head>
-    <body>
+    <body>  
         <div class="wrap">
             <div class="form-wrap">
                 <div class="button-wrap">
