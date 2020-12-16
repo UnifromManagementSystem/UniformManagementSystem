@@ -15,8 +15,8 @@
     <div style="margin-top:10px;">
         <h1 style="text-align:center;">発注管理システム</h1>
 
-        <p style="text-align:right;">11月の売り上げ(発送完了分): 250000원 </p>
-        <p style="text-align:right;">12月の売り上げ(発送完了分): 1240000원</p>
+        <p style="text-align:right;">11月の売り上げ(発送完了分): {{$LastSales}}원 </p>
+        <p style="text-align:right;">12月の売り上げ(発送完了分): {{$NowSales}}원</p>
         <table class="table">
             <thead>
                 <tr>

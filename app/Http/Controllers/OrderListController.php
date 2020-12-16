@@ -15,38 +15,37 @@ class OrderListController extends Controller
     public function index()
     {
 
-        // //지난 달 매출
-        // $LastSales=0;
-        // //이번 달 매출
-        // $NowSales=0;
+        //지난 달 매출
+        $LastSales=0;
+        //이번 달 매출
+        $NowSales=0;
 
-        // //저번 달 발주된 상품들만 가져오기
-        // $fromDate = date('2020-11-10');
-        // $toDate = date('2020-11-31');
-        // $LastItems=\App\Models\Order::whereBetween('order_date', [$fromDate, $toDate])->get();
-
-
-        // dd($LastItems);
+        //저번 달 발주된 상품들만 가져오기
+        $fromDate = date('2020-11-1');
+        $toDate = date('2020-12-1');
+        $LastItems=\App\Models\Order::whereBetween('order_date', [$fromDate, $toDate])->get();
+        
+        
+        //이번 달 발주된 상품들만 가져오기  
+        $from = date('2020-12-1');
+        $to = date('2020-12-31');
+        $NowItems=\App\Models\Order::whereBetween('order_date', [$from, $to])->get();
 
         
         
-        // //이번 달 발주된 상품들만 가져오기  
-        // $from = date('2020-12-1');
-        // $to = date('2020-12-31');
-        // $NowItems=\App\Models\Order::whereBetween('order_date', [$from, $to])->get();
+        //이번 달 발주된 상품들 가격 계산
+        foreach ($NowItems as $value) {
+            if($value->deposit_situ=='Completed'){
+                $NowSales += $value->order_price;
+            }
+         }
 
-        // //이번 달 발주된 상품들 가격 계산
-        // foreach ($NowItems as $value) {
-        //     $NowSales += $value->order_price;
-        //  }
-
-
-
-         
-        //  //저번 달 발주된 상품들 가격 계산
-        // foreach ($LastItems as $value) {
-        //     $LastSales += $value->order_price;
-        //  }
+         //저번 달 발주된 상품들 가격 계산
+        foreach ($LastItems as $value) {
+            if($value->deposit_situ=='Completed'){
+                $LastSales += $value->order_price;
+            }
+         }
 
 
          
@@ -57,7 +56,7 @@ class OrderListController extends Controller
         ->join('products','products.product_number', '=', 'orders.product_number')
         ->select('orders.*', 'users.name', 'products.product_name')
         ->get();
-        return view('admin.orderlist',['data'=>$data]);
+        return view('admin.orderlist',['data'=>$data,'NowSales'=>$NowSales,'LastSales'=>$LastSales]);
     }
 
     /**
