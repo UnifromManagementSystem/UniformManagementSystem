@@ -13,6 +13,5 @@ class Order extends Model
     public $timestamps = false;
 
     protected $fileable = ['order_count', 'order_situ', 'deposit_situ', 'order_price', 'order_date', 'id', 'product_number'];
-    //protected $guarded = ['*'];
 
 }

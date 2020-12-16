@@ -46,6 +46,7 @@ class UniformController extends Controller
 
         //유저 세션정보
         $user = Auth::user();
+     
         //echo $user["email"];
 
         //오더 테이블 입력

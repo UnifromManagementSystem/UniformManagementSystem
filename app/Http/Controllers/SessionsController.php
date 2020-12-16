@@ -46,4 +46,12 @@ class SessionsController extends Controller
     }
 
 
+    // 로그아웃
+    public function destroy(){
+        auth()->logout();
+
+        return redirect('/');
+    }
+
+
 }

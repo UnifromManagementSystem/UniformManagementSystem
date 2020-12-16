@@ -21,7 +21,7 @@ class OrdersTableSeeder extends Seeder
             'order_situ'=>'Waiting',
             'deposit_situ'=>'Waiting',
             'order_price'=>50000,
-            'order_date'=>now(),
+            'order_date'=>'2020-12-10',
             'id'=>1,
             'product_number'=>1
         ]);
@@ -32,7 +32,7 @@ class OrdersTableSeeder extends Seeder
             'order_situ'=>'Completed',
             'deposit_situ'=>'Waiting',
             'order_price'=>50000,
-            'order_date'=>now(),
+            'order_date'=>'2020-12-15',
             'id'=>1,
             'product_number'=>2
         ]);
@@ -43,7 +43,7 @@ class OrdersTableSeeder extends Seeder
             'order_situ'=>'Completed',
             'deposit_situ'=>'Completed',
             'order_price'=>50000,
-            'order_date'=>now(),
+            'order_date'=>'2020-11-13',
             'id'=>2,
             'product_number'=>1
         ]);
@@ -54,7 +54,7 @@ class OrdersTableSeeder extends Seeder
             'order_situ'=>'Waiting',
             'deposit_situ'=>'Waiting',
             'order_price'=>50000,
-            'order_date'=>now(),
+            'order_date'=>'2020-11-20',
             'id'=>1,
             'product_number'=>3
         ]);
