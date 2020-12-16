@@ -28,26 +28,31 @@
         @foreach($data as $item)
         <tbody>
             <tr id='item'>
-            <th scope="row">1</th>
-            <td>{{$item -> name}}</td>
-            <td>{{$item -> product_name}}</td>
-            <td>{{$item -> order_count}}</td>
-            <td>{{$item -> order_price}}</td>
-            <td>{{$item -> order_date}}</td>
-            <td>
-                <select class="form-select" aria-label="Default select example">
-                    <option value="1">入金済</option>
-                    <option value="2">入金待ち</option>
-                </select>
-            </td>
+                <td id="row_list">{{$item -> order_number}}</td>
+                <td>{{$item -> name}}</td>
+                <td>{{$item -> product_name}}</td>
+                <td>{{$item -> order_count}}</td>
+                <td>{{$item -> order_price}}</td>
+                <td>{{$item -> order_date}}</td>
+                <td>
+                    <select class="form-select" aria-label="Default select example">
+                        <option value="1">入金済</option>
+                        <option value="2">入金待ち</option>
+                    </select>
+                </td>
 
-            <td>
-                <select class="form-select" aria-label="Default select example">
-                        <option value="1">発送準備中</option>
-                        <option value="2">未</option>
-                </select></td>
-            </td>
-            <td><button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#readModal">詳細</button><button style="margin-left:10px;" type="button" class="btn btn-outline-warning">更新</button></td>
+                <td>
+                    <select class="form-select" aria-label="Default select example">
+                            <option value="1">発送準備中</option>
+                            <option value="2">未</option>
+                    </select>
+                
+                </td>
+                
+                <td>
+                    <button id="btn_detail" type="button" class="btn btn-outline-info" name="btn_detail" data-bs-toggle="modal" data-bs-target="#readModal">詳細</button>
+                    <button id="btn_update" type="button" style="margin-left:10px;" name="btn_update" type="button" class="btn btn-outline-warning">更新</button>
+                </td>
             </tr>
         </tbody>
         @endforeach
@@ -69,14 +74,14 @@
                         <div class="col-10">
                             <div class="clearfix">
                                 <img style="width:200px; height:200px;"src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRX_eZHagNGoHtZvy9RCWiIuR5FHQ0_lJE6CQ&usqp=CAU" class="rounded float-start" alt="...">
-                                <p>
-                                    상품명: 유니폼A
+                                <p name='p1'>
+                                    상품명:
                                 </p>
-                                <p>
-                                    합계가격: 45000원
+                                <p name='p2'>
+                                    합계가격:
                                 </p>
-                                <p>
-                                    개수: 3
+                                <p name='p3'>
+                                    개수:
                                 </p>
                             </div>
                         </div>
@@ -90,11 +95,31 @@
             </div>
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </body>
 </html>
 
 <script>
+    $(document).ready(function () {
+        $("#btn_detail").click(function(e) {
+            
+            var checkBtn = $(this);
 
+            // // checkBtn.parent() : checkBtn의 부모는 <td>이다.
+            // // checkBtn.parent().parent() : <td>의 부모이므로 <tr>이다.
+			var tr = checkBtn.parent().parent();
+            var td = tr.children();
+            var no = td.eq(0).text();
+            console.log(no); // 1만뜸 왠지모르지만
+
+            $.get('/orderlist' + no, function(res) {
+                //성공시 동작
+                console.log(res);
+            });
+        });
+           
+    });
+       
 </script>

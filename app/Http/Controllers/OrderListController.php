@@ -51,7 +51,12 @@ class OrderListController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = DB::table('orders')
+        ->join('products','products.product_number', '=', 'orders.product_number')
+        ->select('orders.*', 'products.product_name')
+        ->get();
+        
+        return view('admin.orderlist',['data'=>$data]);
     }
 
     /**
