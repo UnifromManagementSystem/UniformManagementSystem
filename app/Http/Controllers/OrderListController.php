@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Order;
 
+use App\Mail\OrderShipped;
+use Illuminate\Support\Facades\Mail;
+
 class OrderListController extends Controller
 {
     /**
@@ -54,7 +57,6 @@ class OrderListController extends Controller
                 $LastSales += $value->order_price;
             }
          }
-<<<<<<< HEAD
 
          $data = DB::table('orders')
          ->join('users','users.email', '=', 'orders.id')
@@ -63,8 +65,6 @@ class OrderListController extends Controller
          ->get();
         
         
-=======
->>>>>>> 085b3656c46f7c24e4aa2870bf0a84ef99989d39
         return view('admin.orderlist',['data'=>$data,'NowSales'=>$NowSales,'LastSales'=>$LastSales]);
     }
 
@@ -91,6 +91,8 @@ class OrderListController extends Controller
         // //한 email에 여러가지 구매목록이 나오니 주문번호 확인 
         // $users2 = DB::table('orders')->where('order_number', $request->order_number)
         // ->union($users)->get();
+
+        Mail::to($request->id)->send(new OrderShipped());
         
         $form_data = [
             'order_situ' => $request->order_situ,
