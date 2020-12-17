@@ -46,17 +46,22 @@ class OrderListController extends Controller
         
         //이번 달 발주된 상품들 가격 계산
         foreach ($NowItems as $value) {
-            if($value->deposit_situ=='Completed'){
+            if($value->order_situ=='Completed'){
                 $NowSales += $value->order_price;
             }
          }
 
          //저번 달 발주된 상품들 가격 계산
         foreach ($LastItems as $value) {
-            if($value->deposit_situ=='Completed'){
+            if($value->order_situ=='Completed'){
                 $LastSales += $value->order_price;
             }
          }
+<<<<<<< HEAD
+=======
+
+         
+>>>>>>> 1af314e0f9e912a7dbd21c32cee728e0d0c2017e
 
          $data = DB::table('orders')
          ->join('users','users.email', '=', 'orders.id')
@@ -104,6 +109,7 @@ class OrderListController extends Controller
                     ->update($form_data);
 
         return response()->json([], 204);
+        
     }
 
     /**
