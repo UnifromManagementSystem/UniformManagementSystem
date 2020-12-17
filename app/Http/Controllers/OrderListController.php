@@ -47,11 +47,13 @@ class OrderListController extends Controller
             }
          }
 
-        $data = DB::table('orders')
-        ->join('users','users.id', '=', 'orders.id')
-        ->join('products','products.product_number', '=', 'orders.product_number')
-        ->select('orders.*', 'users.name', 'products.product_name')
-        ->get();
+         $data = DB::table('orders')
+         ->join('users','users.email', '=', 'orders.id')
+         ->join('products','products.product_number', '=', 'orders.product_number')
+         ->select('orders.*', 'users.*', 'products.product_name')
+         ->get();
+        
+        
         return view('admin.orderlist',['data'=>$data,'NowSales'=>$NowSales,'LastSales'=>$LastSales]);
     }
 

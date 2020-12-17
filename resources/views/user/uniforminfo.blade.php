@@ -16,11 +16,12 @@
       }
 
     </style>
-    
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   </head>
 
 <center>
   <body id="product_page" class="theme">
+  @include('layouts.navigation')
    
     <main class="main" id="main">
       <div class="fade-in wrapper">       
