@@ -35,7 +35,7 @@
             </tr>
         </thead>
         @foreach($data as $item)
-        <tbody name="list" id="{{$item - > order_number}}">
+        <tbody name="list">
             <tr id='item'>
                 <td>{{$item -> order_number}}</td>
                 <td>{{$item -> name}}</td>
@@ -117,25 +117,25 @@
             }
         });
 
-        $.get('/orderlist', function(res) {
-            $.ajax({
-                type : "GET",
-                url : "/orderlist",
-                success: function(result) {
-                    console.log('completed');
+        // $.get('/orderlist', function(res) {
+        //     $.ajax({
+        //         type : "GET",
+        //         url : "/orderlist",
+        //         success: function(result) {
+        //             console.log('completed');
 
-                    var tbody = $('#list').get();
-                    console.log(tbody);
-                    var test = $('#sel1').val();
-                    var test2 = $('#sel2').val();
+        //             var tbody = $('#list').get();
+        //             console.log(tbody);
+        //             var test = $('#sel1').val();
+        //             var test2 = $('#sel2').val();
                     
 
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.log('error');
-                }
-            });
-        });
+        //         },
+        //         error: function(jqXHR, textStatus, errorThrown) {
+        //             console.log('error');
+        //         }
+        //     });
+        // });
 
         //상세정보 버튼 이벤트
         $("#btn_detail").click(function(e) {
@@ -143,6 +143,7 @@
             var checkBtn = $(this);
             // // checkBtn.parent() : checkBtn의 부모는 <td>이다.
             // // checkBtn.parent().parent() : <td>의 부모이므로 <tr>이다.
+            
 			var tr = checkBtn.parent().parent();
             var td = tr.children();
             var no = td.eq(0).text();
