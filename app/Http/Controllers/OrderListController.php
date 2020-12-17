@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Order;
 
 class OrderListController extends Controller
 {
@@ -14,6 +15,13 @@ class OrderListController extends Controller
      */
     public function index()
     {
+
+        //$data2 = DB::table('orders')->get();
+        $data = DB::table('orders')
+        ->join('users','users.email', '=', 'orders.id')
+        ->join('products','products.product_number', '=', 'orders.product_number')
+        ->select('orders.*', 'users.*', 'products.product_name')
+        ->get();
 
         //지난 달 매출
         $LastSales=0;
@@ -46,6 +54,7 @@ class OrderListController extends Controller
                 $LastSales += $value->order_price;
             }
          }
+<<<<<<< HEAD
 
          $data = DB::table('orders')
          ->join('users','users.email', '=', 'orders.id')
@@ -54,6 +63,8 @@ class OrderListController extends Controller
          ->get();
         
         
+=======
+>>>>>>> 085b3656c46f7c24e4aa2870bf0a84ef99989d39
         return view('admin.orderlist',['data'=>$data,'NowSales'=>$NowSales,'LastSales'=>$LastSales]);
     }
 
@@ -75,7 +86,22 @@ class OrderListController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //우선 유저 row 가져오기 id = email
+        // $users = DB::table('orders')->where('id', $request->id);
+        // //한 email에 여러가지 구매목록이 나오니 주문번호 확인 
+        // $users2 = DB::table('orders')->where('order_number', $request->order_number)
+        // ->union($users)->get();
+        
+        $form_data = [
+            'order_situ' => $request->order_situ,
+            'deposit_situ' => $request->deposit_situ
+        ];
+
+        $affected = DB::table('orders')
+                    ->where('order_number', $request->order_number)
+                    ->update($form_data);
+
+        return response()->json([], 204);
     }
 
     /**
@@ -114,7 +140,9 @@ class OrderListController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // dd($request);
+        // $col = Order::where('id', $id)->first();
+        // dd($col);
     }
 
     /**

@@ -7,8 +7,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
     @include('layouts.navigation')
@@ -17,11 +18,13 @@
 
     <p style="text-align:right;">11月の売り上げ(発送完了分): 250000원 </p>
     <p style="text-align:right;">12月の売り上げ(発送完了分): 1240000원</p>
+
     <table class="table">
         <thead>
             <tr>
                 <th scope="col">No</th>
                 <th scope="col">名前</th>
+                <th scope="col">Address</th>
                 <th scope="col">種類</th>
                 <th scope="col">個数</th>
                 <th scope="col">合計金額</th>
@@ -32,29 +35,28 @@
             </tr>
         </thead>
         @foreach($data as $item)
-        <tbody>
+        <tbody name="list">
             <tr id='item'>
-                <td id="row_list">{{$item -> order_number}}</td>
+                <td>{{$item -> order_number}}</td>
                 <td>{{$item -> name}}</td>
+                <td>{{$item -> email}}</td>
                 <td>{{$item -> product_name}}</td>
                 <td>{{$item -> order_count}}</td>
                 <td>{{$item -> order_price}}</td>
                 <td>{{$item -> order_date}}</td>
-                <td>
-                    <select class="form-select" aria-label="Default select example">
-                        <option value="1">入金済</option>
-                        <option value="2">入金待ち</option>
-                    </select>
-                </td>
 
                 <td>
-                    <select class="form-select" aria-label="Default select example">
-                            <option value="1">発送準備中</option>
-                            <option value="2">未</option>
+                    <select class="form-select" id="sel1" aria-label="Default select example">
+                        <option value="Completed">入金済</option>
+                        <option value="Waiting">入金待ち</option>
                     </select>
-                
                 </td>
-                
+                <td>
+                    <select class="form-select" id="sel2" aria-label="Default select example">
+                            <option value="Completed">未</option>
+                            <option value="Waiting">発送準備中</option>
+                    </select>
+                </td>
                 <td>
                     <button id="btn_detail" type="button" class="btn btn-outline-info" name="btn_detail" data-bs-toggle="modal" data-bs-target="#readModal">詳細</button>
                     <button id="btn_update" type="button" style="margin-left:10px;" name="btn_update" type="button" class="btn btn-outline-warning">更新</button>
@@ -109,12 +111,39 @@
 
 <script>
     $(document).ready(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        // $.get('/orderlist', function(res) {
+        //     $.ajax({
+        //         type : "GET",
+        //         url : "/orderlist",
+        //         success: function(result) {
+        //             console.log('completed');
+
+        //             var tbody = $('#list').get();
+        //             console.log(tbody);
+        //             var test = $('#sel1').val();
+        //             var test2 = $('#sel2').val();
+                    
+
+        //         },
+        //         error: function(jqXHR, textStatus, errorThrown) {
+        //             console.log('error');
+        //         }
+        //     });
+        // });
+
+        //상세정보 버튼 이벤트
         $("#btn_detail").click(function(e) {
             
             var checkBtn = $(this);
-
             // // checkBtn.parent() : checkBtn의 부모는 <td>이다.
             // // checkBtn.parent().parent() : <td>의 부모이므로 <tr>이다.
+            
 			var tr = checkBtn.parent().parent();
             var td = tr.children();
             var no = td.eq(0).text();
@@ -125,7 +154,38 @@
                 console.log(res);
             });
         });
-           
+
+        //갱신 버튼 이벤트
+        $("#btn_update").click(function(e) {
+
+            var checkBtn = $(this);
+			var tr = checkBtn.parent().parent();
+            var td = tr.children();
+
+            var order_no = td.eq(0).text();
+            var user_email = td.eq(2).text();
+
+            var test1 = $('#sel1').val(); // 1 or 2
+            var test2 = $('#sel2').val();
+
+            $.ajax({
+                type : "POST",
+                url : "/orderlist",
+                data : {
+                  'order_number' : order_no,
+                  'id' : user_email,
+                  'order_situ' : test1,
+                  'deposit_situ' : test2
+                },
+                success: function(result) {
+                    console.log('completed');
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log('error');
+                }
+            });
+        });
+
     });
        
 </script>
